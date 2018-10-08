@@ -57,7 +57,7 @@ class PointNetSeg():
             batch_size = self.input_pointcloud.get_shape()[0].value
             # num_point = self.input_pointcloud.get_shape()[1].value
 
-            # ---------- 定义step，衰减计算，这个step将在optimizer中自动更新 ----------
+            # ---------- 定义step，衰减计算， ----------
             step = tf.Variable(0)
             bn_decay = self.get_bn_decay(step)
 
@@ -100,7 +100,7 @@ class PointNetSeg():
 
             # global_feat = tf_util.max_pool2d(net, [self.num_point, 1],
             #                                  padding='VALID', scope='maxpool')
-            # ---------- 对源代码进行了修改，适应点数量变化 不该也行 ----------
+            # ----------  ----------
             global_feat = tf.reduce_max(net, axis=1, keepdims=True)
 
 
@@ -154,7 +154,7 @@ class PointNetSeg():
                 optimizer = tf.train.MomentumOptimizer(learning_rate, momentum=self.MOMENTUM)
             elif self.OPTIMIZER == 'adam':
                 optimizer = tf.train.AdamOptimizer(learning_rate)
-            self.train_op = optimizer.minimize(self.loss, global_step=step) #这个赋值step千万不能少，不然step不回更新，这里传入的是引用
+            self.train_op = optimizer.minimize(self.loss, global_step=step) 
 
             # --------- 保存模型的op-saver ----------
 
